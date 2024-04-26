@@ -41,8 +41,15 @@ class SidePanel(ctk.CTkFrame):
         self.buttons_frame.pack(expand=True)
 
     def get_entry_msg(self):
-        if (self.entry_r.get() == '' or self.entry_g.get() == '' or self.entry_b.get() == ''
-                or self.entry_msg.get() == ''):
+        # if (self.entry_r.get() == '' or self.entry_g.get() == '' or self.entry_b.get() == ''
+        #         or self.entry_msg.get() == '' or self.size.get() == ''):
+        if not (self.entry_r.get() or self.entry_g.get() or self.entry_b.get()
+                or self.entry_msg.get() or self.size.get()):
+            self.warning.grid(column=1, row=11, columnspan=3)
+            self.save_button.grid_forget()
+        elif (self.entry_r.get().isdigit() is False or self.entry_g.get().isdigit() is False or
+              self.entry_b.get().isdigit() is False or self.size.get().isdigit() is False or self.entry_msg.get().isspace()):
+            self.warning.configure(text="Use proper values!")
             self.warning.grid(column=1, row=11, columnspan=3)
             self.save_button.grid_forget()
         else:

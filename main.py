@@ -87,7 +87,6 @@ class App(ctk.CTk):
             size = int(self.watermark_dict["size"])
             font = ImageFont.truetype("arial.ttf", size, encoding="unic")
             width = self.drawer.textlength(msg, font=font)
-            print(f"width: {width}")
             self.rotation = angle
             for n in range(0, self.original.height, int(width)):
                 x = 0
@@ -102,7 +101,8 @@ class App(ctk.CTk):
     def save_img(self):
         file = filedialog.asksaveasfilename(filetypes=[("PNG Image", "*.png")])
         # print(file)
-        self.result.convert("RGB").save(f"{file}.png", 'PNG')
+        if file:
+            self.result.convert("RGB").save(f"{file}.png", 'PNG')
 
 
 app = App()
