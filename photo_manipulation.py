@@ -18,6 +18,9 @@ class SidePanel(ctk.CTkFrame):
         self.entry_g.grid(column=2, row=1, sticky="w")
         self.entry_b.grid(column=3, row=1, sticky="w")
 
+        self.size = ctk.CTkEntry(self.buttons_frame, placeholder_text="Size")
+        self.size.grid(column=1, row=2, columnspan=3)
+
         self.opacity_label = ctk.CTkLabel(self.buttons_frame, text="Opacity")
         self.opacity_label.grid(column=1, row=4, columnspan=3)
         self.opacity = ctk.CTkSlider(self.buttons_frame, from_=0, to=255, width=125)
@@ -27,11 +30,6 @@ class SidePanel(ctk.CTkFrame):
         self.angle_label.grid(column=1, row=6, columnspan=3)
         self.angle = ctk.CTkSlider(self.buttons_frame, from_=-180, to=180, width=125)
         self.angle.grid(column=1, row=7, columnspan=3)
-
-        self.size_label = ctk.CTkLabel(self.buttons_frame, text="Size")
-        self.size_label.grid(column=1, row=8, columnspan=3)
-        self.size = ctk.CTkSlider(self.buttons_frame, from_=0, to=25, width=125)
-        self.size.grid(column=1, row=9, columnspan=3)
 
         self.entry_button = ctk.CTkButton(self.buttons_frame, text='Add Text', command=manipulate_image)
         self.entry_button.grid(column=1, row=10, columnspan=3)

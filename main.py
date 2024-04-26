@@ -2,7 +2,7 @@ import customtkinter as ctk
 
 import photo_manipulation
 from image_import import *
-from PIL import Image, ImageTk, ImageDraw
+from PIL import Image, ImageTk, ImageDraw, ImageFont
 from photo_manipulation import *
 
 
@@ -55,7 +55,7 @@ class App(ctk.CTk):
         self.image_output.delete('all')
         # Show the image
 
-        print(self.image.size)
+        # print(self.image.size)
         rotated_transparent_overlay = self.transparent_overlay.rotate(self.rotation)
         resized_image = self.image.resize((self.image_width, self.image_height))
         crop_size = (0,
@@ -85,19 +85,23 @@ class App(ctk.CTk):
             opacity = int(self.watermark_dict["opacity"])
             angle = int(self.watermark_dict["angle"])
             size = int(self.watermark_dict["size"])
+            font = ImageFont.truetype("arial.ttf", size, encoding="unic")
+            width = self.drawer.textlength(msg, font=font)
+            print(f"width: {width}")
             self.rotation = angle
-            for n in range(0, self.original.height * 2, 100):
+            for n in range(0, self.original.height, int(width)):
                 x = 0
                 y = 0 + n
-                for j in range(0, self.original.width, 200):
-                    self.drawer.text((x + j, y, x + j, y), f"{msg}",
+                for j in range(0, self.original.width, 100):
+                    self.drawer.text(((x + j), y), f"{msg}",
                                      fill=(r, g, b, opacity),
-                                     font_size=size + 25)
+                                     font=font)
+                    x += int(width)
             self.place_image()
 
     def save_img(self):
         file = filedialog.asksaveasfilename(filetypes=[("PNG Image", "*.png")])
-        print(file)
+        # print(file)
         self.result.convert("RGB").save(f"{file}.png", 'PNG')
 
 
